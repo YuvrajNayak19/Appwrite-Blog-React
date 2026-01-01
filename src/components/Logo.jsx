@@ -3,7 +3,7 @@ import React from "react";
 function Logo({ width = "100px" }) {
   return (
     <img
-      src="https://img.sanishtech.com/u/e108861f872e7f31458cbc4b73134197.png"
+      src="https://ik.imagekit.io/YuvrajNayak/572-removebg-preview.png?updatedAt=1767256904522"
       alt="Logo"
       style={{ width }}
     />
