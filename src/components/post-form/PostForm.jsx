@@ -74,6 +74,8 @@ export default function PostForm({ post }) {
         ...data,
         featuredImage: file.$id,
         userid: userData.$id,
+        username: userData.name,
+        $createdAt: new Date().toISOString()
       });
 
       if (dbPost) navigate(`/post/${dbPost.$id}`);

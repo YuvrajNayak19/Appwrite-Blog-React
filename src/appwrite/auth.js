@@ -61,6 +61,39 @@ export class AuthService{
             console.log('Appwrite service :: logout ::', error)
         }
     }
+
+    async updateUserName(name) {
+    try {
+        return await this.account.updateName(name);
+    } catch (error) {
+        console.error("Appwrite updateUserName error:", error);
+        throw error;
+    }
+}
+
+    async updatePassword(newPassword, oldPassword){
+        try{
+            return await this.account.updatePassword(newPassword, oldPassword)
+        }catch(error){
+            console.error("Appwrite updatePassword error:", error);
+    throw error;
+        }
+    }
+
+async updateUserProfile({ profilePic }) {
+  try {
+    const user = await this.account.updatePrefs({
+      profilePic: profilePic
+    });
+    return user;
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    throw error;
+  }
+}
+
+
+
     async testAccountFetchWithCredentials(){
         try{
             const url = `${conf.appwriteUrl}/account`;
@@ -82,6 +115,18 @@ export class AuthService{
             throw error;
         }
     }
+
+    // auth.js
+async updateUserName(newName) {
+  try {
+    return await this.account.updateName(newName); // just the new name
+  } catch (error) {
+    console.error("Appwrite updateUserName error:", error);
+    throw error;
+  }
+}
+
+
 
     async checkConnectivity({ fetchHealth = true, fetchAccount = true } = {}) {
         const result = {

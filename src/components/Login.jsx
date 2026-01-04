@@ -15,17 +15,10 @@ function Login() {
   const loginHandler = async (data) => {
     setError("")
     try {
-      // 1️⃣ Log in and create session
       await authService.login(data)
-
-      // 2️⃣ Fetch current user
       const user = await authService.getCurrentUser()
-
-      // 3️⃣ Update Redux
       if (user) dispatch(authLogin(user))
       else dispatch(logout())
-
-      // 4️⃣ Navigate AFTER Redux update
       navigate("/", { replace: true })
     } catch (err) {
       setError(err.message)

@@ -1,6 +1,5 @@
 import conf from '../conf/conf.js';
-import { Client, ID, Databases, Storage, Query } from "appwrite";
-import { Permission, Role } from "appwrite";
+import { Client, ID, Databases, Storage, Query, Account } from "appwrite";
 
 export class Service{
     client = new Client();
@@ -17,7 +16,7 @@ export class Service{
         this.bucket = new Storage(this.client);
     }
 
-    async createPost({title, slug, content, featuredImage, status, userid}){
+    async createPost({title, slug, content, featuredImage, status, userid, $createdAt,}){
         try {
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
@@ -29,6 +28,7 @@ export class Service{
                     featuredImage,
                     status,
                     userid,
+                    $createdAt
                 }
             )
         } catch (error) {
@@ -127,6 +127,26 @@ getFileView(fileId) {
       fileId
     );
 }
+
+async updateUsernameEverywhere(userId, newUsername) {
+  const posts = await this.databases.listDocuments(
+    conf.appwriteDatabaseId,
+    conf.appwriteCollectionId,
+    [Query.equal("userid", userId)]
+  );
+
+  const promises = posts.documents.map((post) =>
+    this.databases.updateDocument(
+      conf.appwriteDatabaseId,
+      conf.appwriteCollectionId,
+      post.$id,
+      { username: newUsername }
+    )
+  );
+
+  await Promise.all(promises);
+}
+
 
 }
 

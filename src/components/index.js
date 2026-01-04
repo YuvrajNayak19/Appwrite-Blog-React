@@ -12,6 +12,8 @@ import PostForm from "./post-form/PostForm";
 import PostCard from "./Postcard";
 import AuthLayout from "./AuthLayout";
 import Input from "./Input";
+import ProfileBtn from "./ProfileBtn"
+import ProfileMenu from "./ProfileMenu";
 export {
     Header,
     Footer,
@@ -27,4 +29,6 @@ export {
     AuthLayout, 
     Input,
     Select,
+    ProfileBtn,
+    ProfileMenu
 }
